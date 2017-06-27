@@ -1,5 +1,6 @@
 package com.hasani.moein.taan.tinynotebook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -31,6 +32,9 @@ public class Note extends AppCompatActivity {
         mynote.setContent(Text_edit.getText().toString().trim());
         dbh.addnote(mynote);
         dbh.close();
+        Intent intent=new Intent(Note.this,notes_list.class);
+        startActivity(intent);
         super.onDestroy();
+
     }
 }

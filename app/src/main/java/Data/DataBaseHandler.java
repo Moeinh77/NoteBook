@@ -67,7 +67,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor=db.query(Constants.TABLE_NAME,new String[]{Constants.KEY_ID,
                 Constants.TITLE_NAME,Constants.CONTENT_NAME,Constants.DATE_NAME}
-                ,null,null,null,null,Constants.DATABASE_NAME+"DESC");
+                ,null,null,null,null,Constants.DATE_NAME+" DESC");
 
         if(cursor.moveToFirst()){
             do{
@@ -75,7 +75,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 mynote.setTitle(cursor.getString(cursor.getColumnIndex(Constants.TITLE_NAME)));
                 mynote.setContent(cursor.getString(cursor.getColumnIndex(Constants.CONTENT_NAME)));
                 java.text.DateFormat dateFormat=java.text.DateFormat.getDateInstance();//new ***
-                String date_=dateFormat.format(new Date(cursor.getString(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
+                String date_=dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
                 //Date depricatted
                 mynote.setDate(date_);
                 noteArrayList.add(mynote);
