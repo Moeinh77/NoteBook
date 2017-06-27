@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.CheckedOutputStream;
 
 import Model.note;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Moein on 6/26/2017.
@@ -29,9 +32,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String TABLE_CREATION=
-                "create table"+ Constants.TABLE_NAME+"("+Constants.KEY_ID+"INTEGER PRIMARY KEY"+
-                Constants.TITLE_NAME+"TEXT"+Constants.CONTENT_NAME+"TEXT"+Constants.DATE_NAME+"LONG);";
+                "create table "+ Constants.TABLE_NAME+"("+Constants.KEY_ID+" INTEGER PRIMARY KEY,"+
+                Constants.TITLE_NAME+" TEXT,"+Constants.CONTENT_NAME+" TEXT,"+Constants.DATE_NAME+" LONG);";
 
+        db.execSQL(TABLE_CREATION);
     }
 
     @Override
@@ -51,6 +55,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(Constants.CONTENT_NAME,new_note.getContent());
         values.put(Constants.DATE_NAME,java.lang.System.currentTimeMillis());
         db.insert(Constants.TABLE_NAME,null,values);
+        Log.d(TAG, "addnote: successfull");
         db.close();
 
     }

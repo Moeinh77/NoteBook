@@ -14,8 +14,8 @@
         android:layout_height="495dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:divider="@android:color/holo_blue_dark"
-        android:dividerHeight="1dp"
+        android:divider="#009688"
+        android:dividerHeight="2dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
