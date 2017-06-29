@@ -2,6 +2,7 @@ package Data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.CrossProcessCursor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -51,6 +52,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
 
+
         values.put(Constants.TITLE_NAME,new_note.getTitle());
         values.put(Constants.CONTENT_NAME,new_note.getContent());
         values.put(Constants.DATE_NAME,java.lang.System.currentTimeMillis());
@@ -59,6 +61,28 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
 
     }
+
+    public void removenote(int id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete(Constants.TABLE_NAME,Constants.KEY_ID+" =?",
+                new String[]{String.valueOf(id)});
+
+    }
+
+//
+//    public ArrayList<String> getTiltles(){
+//
+//        ArrayList<note> helper=getnotes();
+//        for(int i=0;i<helper.size();i++) {
+//            note note1=;
+//            helper.add(note1.getTitle()) ;
+//        }
+//        return
+//    }
+
+
+
+
 
     public ArrayList<note> getnotes(){
 
@@ -74,9 +98,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 note mynote=new note();
                 mynote.setTitle(cursor.getString(cursor.getColumnIndex(Constants.TITLE_NAME)));
                 mynote.setContent(cursor.getString(cursor.getColumnIndex(Constants.CONTENT_NAME)));
+
                 java.text.DateFormat dateFormat=java.text.DateFormat.getDateInstance();//new ***
                 String date_=dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
-                //Date depricatted
+
+                mynote.setId(cursor.getInt(cursor.getColumnIndex(Constants.KEY_ID)));
+
                 mynote.setDate(date_);
                 noteArrayList.add(mynote);
 

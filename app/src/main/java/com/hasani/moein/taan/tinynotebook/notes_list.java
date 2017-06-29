@@ -53,6 +53,7 @@ public class notes_list extends AppCompatActivity {
 
     }
           public void refreshData(){
+              //listView.setAdapter(null);
               dbnotes.clear();
               dbh =new DataBaseHandler(getApplicationContext());
               ArrayList<note> notesfromdb=dbh.getnotes();
@@ -61,10 +62,13 @@ public class notes_list extends AppCompatActivity {
                   mNote.setTitle(notesfromdb.get(i).getTitle());
                   mNote.setContent(notesfromdb.get(i).getContent());
                   mNote.setDate(notesfromdb.get(i).getDate());
+                  int mid=notesfromdb.get(i).getId();
+                  mNote.setId(mid);
 
                   dbnotes.add(mNote);
               }
               dbh.close();
+
               noteAdapter=new NoteAdapter(notes_list.this,R.layout.wish_row,dbnotes);
               listView.setAdapter(noteAdapter);
           }
@@ -83,7 +87,10 @@ public class notes_list extends AppCompatActivity {
 
 
         }
-
+        @Override
+        public boolean isEnabled(int position) {
+            return false;
+        }
         @Override
         public int getCount() {
             return mData.size();
@@ -129,10 +136,10 @@ public class notes_list extends AppCompatActivity {
                 holder = (ViewHolder) row.getTag();
             }
 
-            holder.myWish = getItem(position);
+            holder.mynote = getItem(position);
 
-            holder.mTitle.setText(holder.myWish.getTitle());
-            holder.mDate.setText(holder.myWish.getDate());
+            holder.mTitle.setText(holder.mynote.getTitle());
+            holder.mDate.setText(holder.mynote.getDate());
 
 
 
@@ -141,30 +148,36 @@ public class notes_list extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    String text = finalHolder.myWish.getContent().toString();
-                    String dateText = finalHolder.myWish.getDate().toString();
-                    String title = finalHolder.myWish.getTitle().toString();
+                    String text = finalHolder.mynote.getContent().toString();
+                    String dateText = finalHolder.mynote.getDate().toString();
+                    String title = finalHolder.mynote.getTitle().toString();
 
-                    //int mid = finalHolder.myWish.getItemId();
-
-                   // Log.v("MyId: " , String.valueOf(mid));
-
-
-//
-
-
-
+                    int mId = finalHolder.mynote.getId();
 
                     Intent i = new Intent(notes_list.this, Note.class);
                     i.putExtra("content", text);
                     i.putExtra("date", dateText);
                     i.putExtra("title", title);
-                    //i.putExtra("id", mid);
-
-
+                    i.putExtra("id", mId);
                     startActivity(i);
+                }
+            });
+            holder.mDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    String text = finalHolder.mynote.getContent().toString();
+                    String dateText = finalHolder.mynote.getDate().toString();
+                    String title = finalHolder.mynote.getTitle().toString();
 
+                    int mId = finalHolder.mynote.getId();
+
+                    Intent i = new Intent(notes_list.this, Note.class);
+                    i.putExtra("content", text);
+                    i.putExtra("date", dateText);
+                    i.putExtra("title", title);
+                    i.putExtra("id", mId);
+                    startActivity(i);
                 }
             });
             return row;
@@ -172,7 +185,7 @@ public class notes_list extends AppCompatActivity {
         }
         class ViewHolder{
 
-            note myWish;
+            note mynote;
             TextView mTitle;
             int mId;
             TextView mContent;
