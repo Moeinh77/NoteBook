@@ -83,5 +83,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return noteArrayList;
+
     }
 }

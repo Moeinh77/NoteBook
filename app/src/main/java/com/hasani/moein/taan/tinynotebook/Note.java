@@ -20,6 +20,14 @@ public class Note extends AppCompatActivity {
         Title_edit=(EditText)findViewById(R.id.title);
         Text_edit=(EditText)findViewById(R.id.text);
 
+        Bundle reciever=getIntent().getExtras();
+        if(reciever==null){
+
+        }else{
+
+            Title_edit.setText(reciever.getString("title"));
+            Text_edit.setText(reciever.getString("content"));
+        }
 
 
     }

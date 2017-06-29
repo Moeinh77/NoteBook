@@ -46,7 +46,7 @@ public class notes_list extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(notes_list.this, Note.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -155,14 +155,14 @@ public class notes_list extends AppCompatActivity {
 
 
 
-//                    Intent i = new Intent(DisplayWishesActivity.this, WishDetailActivity.class);
-//                    i.putExtra("content", text);
-//                    i.putExtra("date", dateText);
-//                    i.putExtra("title", title);
-//                    i.putExtra("id", mid);
-//
-//
-//                    startActivity(i);
+                    Intent i = new Intent(notes_list.this, Note.class);
+                    i.putExtra("content", text);
+                    i.putExtra("date", dateText);
+                    i.putExtra("title", title);
+                    //i.putExtra("id", mid);
+
+
+                    startActivity(i);
 
 
                 }
