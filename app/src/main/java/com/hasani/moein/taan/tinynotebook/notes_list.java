@@ -62,7 +62,13 @@ public class notes_list extends AppCompatActivity {
               ArrayList<note> notesfromdb=dbh.getnotes();
               for(int i=0;i<notesfromdb.size();i++){
                   note mNote =new note();
-                  mNote.setTitle(notesfromdb.get(i).getTitle());
+                  if(notesfromdb.get(i).getTitle().equals(""))
+                  {
+                      mNote.setTitle("No Title...");
+
+                  }else{
+                      mNote.setTitle(notesfromdb.get(i).getTitle());
+                  }
                   mNote.setContent(notesfromdb.get(i).getContent());
                   mNote.setDate(notesfromdb.get(i).getDate());
                   int mid=notesfromdb.get(i).getId();

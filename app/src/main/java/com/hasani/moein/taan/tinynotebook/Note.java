@@ -35,7 +35,9 @@ public class Note extends AppCompatActivity {
     protected void onDestroy() {
         DataBaseHandler dbh=new DataBaseHandler(Note.this);
         note mynote=new note();
-        if(Text_edit.getText().toString().equals("") ){
+        if(Text_edit.getText().toString().equals("")&&
+                Title_edit.getText().toString().equals("") )
+        {
             Intent intent=new Intent(Note.this,notes_list.class);
             startActivity(intent);
             finish();
@@ -46,7 +48,8 @@ public class Note extends AppCompatActivity {
         dbh.close();
         Intent intent=new Intent(Note.this,notes_list.class);
         startActivity(intent);
-        finish();}
+        finish();
+        }
         super.onDestroy();
 
     }
