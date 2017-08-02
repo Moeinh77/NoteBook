@@ -63,30 +63,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     public void removenote(int id){
+
         SQLiteDatabase db=this.getWritableDatabase();
+
         db.delete(Constants.TABLE_NAME,Constants.KEY_ID+" =?",
                 new String[]{String.valueOf(id)});
 
+        Cursor cursor=db.rawQuery("SELECT * FROM "+Constants.TABLE_NAME,null);
+        Log.d(TAG, "Items in db= "+cursor.getCount());
     }
 
-//
-//    public ArrayList<String> getTiltles(){
-//
-//        ArrayList<note> helper=getnotes();
-//        for(int i=0;i<helper.size();i++) {
-//            note note1=;
-//            helper.add(note1.getTitle()) ;
-//        }
-//        return
-//    }
-
-
-
-
-
     public ArrayList<note> getnotes(){
-
-        String select="select * from "+Constants.TABLE_NAME;
         SQLiteDatabase db=this.getReadableDatabase();
 
         Cursor cursor=db.query(Constants.TABLE_NAME,new String[]{Constants.KEY_ID,

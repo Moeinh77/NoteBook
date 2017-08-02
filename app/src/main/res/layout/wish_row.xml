@@ -2,19 +2,19 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="54dp"
         android:layout_height="56dp"
-        app:srcCompat="@drawable/notebook_one"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="9dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="9dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notebook_green"
         tools:layout_editor_absoluteX="12dp" />
 
     <TextView
