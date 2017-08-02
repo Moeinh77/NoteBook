@@ -33,6 +33,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
 
     }
 
+
     @Override
     public int getCount() {
         return set_list.size();
