@@ -53,6 +53,5 @@ public class Get_note extends AppCompatActivity {
         finish();
         }
         super.onDestroy();
-
     }
 }
