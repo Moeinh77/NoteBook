@@ -13,7 +13,7 @@ import Model.note;
 
 import static android.R.attr.id;
 
-public class Notesdetails_forlist extends AppCompatActivity {
+public class Show_note extends AppCompatActivity {
 
     TextView title;
     TextView content;
@@ -50,7 +50,7 @@ public class Notesdetails_forlist extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Intent i=new Intent(Notesdetails_forlist.this,notes_list.class);
+        Intent i=new Intent(Show_note.this,notes_list.class);
         startActivity(i);
 
         super.onDestroy();

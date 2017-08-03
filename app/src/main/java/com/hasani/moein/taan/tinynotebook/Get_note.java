@@ -7,17 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
 import Data.DataBaseHandler;
 import Model.note;
 
-import static android.R.attr.id;
-
-public class Note extends AppCompatActivity {
+public class Get_note extends AppCompatActivity {
     private EditText Title_edit;
     private EditText Text_edit;
-    private Button delete;
+    private Button Submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +22,25 @@ public class Note extends AppCompatActivity {
 
         Title_edit=(EditText)findViewById(R.id.title);
         Text_edit=(EditText)findViewById(R.id.text);
+        Submit=(Button)findViewById(R.id.submit);
 
-
-
+        Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 
     @Override
     protected void onDestroy() {
-        DataBaseHandler dbh=new DataBaseHandler(Note.this);
+        DataBaseHandler dbh=new DataBaseHandler(Get_note.this);
         note mynote=new note();
         if(Text_edit.getText().toString().equals("")&&
                 Title_edit.getText().toString().equals("") )
         {
-            Intent intent=new Intent(Note.this,notes_list.class);
+            Intent intent=new Intent(Get_note.this,notes_list.class);
             startActivity(intent);
             finish();
         }else{
@@ -46,7 +48,7 @@ public class Note extends AppCompatActivity {
         mynote.setContent(Text_edit.getText().toString().trim());
         dbh.addnote(mynote);
         dbh.close();
-        Intent intent=new Intent(Note.this,notes_list.class);
+        Intent intent=new Intent(Get_note.this,notes_list.class);
         startActivity(intent);
         finish();
         }

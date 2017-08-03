@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.hasani.moein.taan.tinynotebook.Notesdetails_forlist;
+import com.hasani.moein.taan.tinynotebook.Show_note;
 import com.hasani.moein.taan.tinynotebook.R;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
             @Override
             public void onClick(View v) {
 
-                Intent i=new Intent(activity,Notesdetails_forlist.class);
+                Intent i=new Intent(activity,Show_note.class);
 
                 Bundle mBundle=new Bundle();
                 mBundle.putSerializable("My object", finalHolder.Note);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hasani.moein.taan.tinynotebook.Notesdetails_forlist">
+    tools:context="com.hasani.moein.taan.tinynotebook.Show_note">
 
     <Button
         android:id="@+id/delete"

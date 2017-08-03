@@ -4,13 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/notebook_one"
+        android:icon="@drawable/cyan"
         android:label="My Diary"
-        android:roundIcon="@drawable/notebook_one"
+        android:roundIcon="@drawable/cyan"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Note" />
-        <activity android:name=".Notesdetails_forlist" />
+        <activity android:name=".Get_note" />
+        <activity android:name=".Show_note" />
         <activity android:name=".notes_list"
             android:theme="@style/AppTheme.NoActionBar">
         <intent-filter>
