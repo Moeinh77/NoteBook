@@ -1,6 +1,8 @@
 package com.hasani.moein.taan.tinynotebook;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,45 +15,50 @@ import Model.note;
 public class Get_note extends AppCompatActivity {
     private EditText Title_edit;
     private EditText Text_edit;
-    private Button Submit;
+    private Button save;
+    private Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+        setContentView(R.layout.get_note);
+
+
 
         Title_edit=(EditText)findViewById(R.id.title);
         Text_edit=(EditText)findViewById(R.id.text);
-        Submit=(Button)findViewById(R.id.submit);
+        save=(Button)findViewById(R.id.submit);
+        cancel=(Button)findViewById(R.id.cancel);
 
-        Submit.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataBaseHandler dbh=new DataBaseHandler(Get_note.this);
+                note mynote=new note();
+                if(Text_edit.getText().toString().equals("")&&
+                        Title_edit.getText().toString().equals("") )
+                {
+
+                    finish();
+                }else{
+                    mynote.setTitle(Title_edit.getText().toString().trim());
+                    mynote.setContent(Text_edit.getText().toString().trim());
+                    dbh.addnote(mynote);
+                    dbh.close();
+
+                    finish();
+                }
             }
         });
     }
 
 
-    @Override
-    protected void onDestroy() {
-        DataBaseHandler dbh=new DataBaseHandler(Get_note.this);
-        note mynote=new note();
-        if(Text_edit.getText().toString().equals("")&&
-                Title_edit.getText().toString().equals("") )
-        {
-            Intent intent=new Intent(Get_note.this,notes_list.class);
-            startActivity(intent);
-            finish();
-        }else{
-        mynote.setTitle(Title_edit.getText().toString().trim());
-        mynote.setContent(Text_edit.getText().toString().trim());
-        dbh.addnote(mynote);
-        dbh.close();
-        Intent intent=new Intent(Get_note.this,notes_list.class);
-        startActivity(intent);
-        finish();
-        }
-        super.onDestroy();
-    }
 }

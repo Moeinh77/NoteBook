@@ -22,8 +22,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
     private Activity activity;
     private ArrayList<note> set_list=new ArrayList<>();
 
-    public CustomListViewAdapter(Activity act,int resource,
-                                 ArrayList<note> data)
+    public CustomListViewAdapter(Activity act,int resource, ArrayList<note> data)
     {
         super(act,resource,data);
         Layoutresource =resource;
@@ -32,7 +31,6 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
         notifyDataSetChanged();
 
     }
-
 
     @Override
     public int getCount() {
@@ -58,7 +56,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View row=convertView;
-        Viewholder holder=null;
+        Viewholder holder;
 
         if (row == null||(row.getTag()==null)) {
             LayoutInflater inflater= LayoutInflater.from(activity);
@@ -78,7 +76,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
         holder.Note=getItem(position);
 
         holder.date.setText(holder.Note.getDate());
-        holder.title.setText(String.valueOf(holder.Note.getTitle()));
+        holder.title.setText(holder.Note.getTitle());
 
         final Viewholder finalHolder = holder;
         row.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +89,6 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
                 mBundle.putSerializable("My object", finalHolder.Note);
                 i.putExtras(mBundle);
                 activity.startActivity(i);
-                activity.finish();
 
             }
         });

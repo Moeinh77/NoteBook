@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.CheckedOutputStream;
@@ -34,7 +37,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         String TABLE_CREATION=
                 "create table "+ Constants.TABLE_NAME+"("+Constants.KEY_ID+" INTEGER PRIMARY KEY,"+
-                Constants.TITLE_NAME+" TEXT,"+Constants.CONTENT_NAME+" TEXT,"+Constants.DATE_NAME+" LONG);";
+                Constants.TITLE_NAME+" TEXT,"+Constants.CONTENT_NAME+" TEXT,"+Constants.DATE_NAME+" LONG,"
+                        +Constants.TIME_NAME+" LONG);";
 
         db.execSQL(TABLE_CREATION);
     }
@@ -52,11 +56,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
 
-
         values.put(Constants.TITLE_NAME,new_note.getTitle());
         values.put(Constants.CONTENT_NAME,new_note.getContent());
         values.put(Constants.DATE_NAME,java.lang.System.currentTimeMillis());
+        values.put(Constants.TIME_NAME,java.lang.System.currentTimeMillis());
+
         db.insert(Constants.TABLE_NAME,null,values);
+
         Log.d(TAG, "addnote: successfull");
         db.close();
 
@@ -70,14 +76,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)});
 
         Cursor cursor=db.rawQuery("SELECT * FROM "+Constants.TABLE_NAME,null);
-        Log.d(TAG, "Items in db= "+cursor.getCount());
+        Log.v(TAG, "Items in db= "+cursor.getCount());
     }
 
     public ArrayList<note> getnotes(){
         SQLiteDatabase db=this.getReadableDatabase();
 
         Cursor cursor=db.query(Constants.TABLE_NAME,new String[]{Constants.KEY_ID,
-                Constants.TITLE_NAME,Constants.CONTENT_NAME,Constants.DATE_NAME}
+                Constants.TITLE_NAME,Constants.CONTENT_NAME,Constants.DATE_NAME,Constants.TIME_NAME}
                 ,null,null,null,null,Constants.DATE_NAME+" DESC");
 
         if(cursor.moveToFirst()){
@@ -87,11 +93,24 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 mynote.setContent(cursor.getString(cursor.getColumnIndex(Constants.CONTENT_NAME)));
 
                 java.text.DateFormat dateFormat=java.text.DateFormat.getDateInstance();//new ***
-                String date_=dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
+                String date_=dateFormat.format(
+                        new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
+
+//                dateFormat=java.text.DateFormat.getTimeInstance();//new ***
+//                String time_=dateFormat.format(
+//                        new Time(cursor.getLong(cursor.getColumnIndex(Constants.TIME_NAME))).getTime());
 
                 mynote.setId(cursor.getInt(cursor.getColumnIndex(Constants.KEY_ID)));
 
+                //new ****
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                String time_=sdf.format(cal.getTime());
+
+                mynote.setTime(time_);
+
                 mynote.setDate(date_);
+
                 noteArrayList.add(mynote);
 
             }while (cursor.moveToNext());

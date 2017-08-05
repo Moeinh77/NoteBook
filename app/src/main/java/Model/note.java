@@ -9,8 +9,17 @@ import java.io.Serializable;
 public class note implements Serializable {
     private String title;
     private String date;
+    private String time;
     private String content;
     private int id;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public int getId() {
         return id;

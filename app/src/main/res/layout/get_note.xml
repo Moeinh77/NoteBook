@@ -50,11 +50,24 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="#009688"
-        android:text="Submit"
+        android:text="save"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text" />
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="73dp"
+        android:backgroundTint="#009688"
+        android:text="cancel"
+        android:textColor="@android:color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/submit" />
 
 </android.support.constraint.ConstraintLayout>
