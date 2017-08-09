@@ -4,20 +4,22 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/cyan"
+        android:label="My Diary"
+        android:roundIcon="@drawable/cyan"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".notes_display">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Get_note" />
+        <activity android:name=".Show_note" />
+        <activity android:name=".notes_list"
+            android:theme="@style/AppTheme.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Note" />
-        <activity android:name=".Notesdetails_forlist"></activity>
+
+           </activity>
     </application>
 
 </manifest>
