@@ -73,10 +73,10 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
             holder=(Viewholder)row.getTag();
         }
 
-        holder.Note=getItem(position);
+        holder.note =getItem(position);
 
-        holder.date.setText(holder.Note.getDate());
-        holder.title.setText(holder.Note.getTitle());
+        holder.date.setText(holder.note.getDate());
+        holder.title.setText(holder.note.getTitle());
 
         final Viewholder finalHolder = holder;
         row.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
                 Intent i=new Intent(activity,Show_note.class);
 
                 Bundle mBundle=new Bundle();
-                mBundle.putSerializable("My object", finalHolder.Note);
+                mBundle.putSerializable("My object", finalHolder.note);
                 i.putExtras(mBundle);
                 activity.startActivity(i);
 
@@ -97,7 +97,7 @@ public class CustomListViewAdapter extends ArrayAdapter<note> {
 
 
     public class Viewholder{
-        note Note;
+        note note;
         TextView title;
         TextView date;
     }

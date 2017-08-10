@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Tiny Note Book !</string>
+    <string name="app_name">Tiny note Book !</string>
     <string name="title_activity_notes_list">notes_list</string>
 </resources>

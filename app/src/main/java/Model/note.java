@@ -1,5 +1,8 @@
 package Model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,15 @@ public class note implements Serializable {
     private String time;
     private String content;
     private int id;
+    private Bitmap bitmap;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public String getTime() {
         return time;

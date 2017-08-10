@@ -17,7 +17,6 @@ import Model.note;
 public class notes_list extends AppCompatActivity {
 
     private DataBaseHandler dbh;
-    //private ArrayList<note> dbnotes=new ArrayList<>();
     private ListView listView ;
     private CustomListViewAdapter customListViewAdapter;
 
@@ -39,9 +38,8 @@ public class notes_list extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
+
           public void refreshData(){
               dbh =new DataBaseHandler(getApplicationContext());
               ArrayList<note> notesfromdb=dbh.getnotes();
@@ -54,7 +52,6 @@ public class notes_list extends AppCompatActivity {
     @Override
     protected void onResume() {
         refreshData();
-
         super.onResume();
     }
 }

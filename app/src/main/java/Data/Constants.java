@@ -13,5 +13,6 @@ public class Constants {
     public static final String DATE_NAME="date";
     public static final String TIME_NAME="time";
     public static final String KEY_ID="_id";
+    public static final String Bitmap_NAME="bitmap";
 
 }

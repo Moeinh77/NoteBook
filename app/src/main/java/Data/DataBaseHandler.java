@@ -2,19 +2,16 @@ package Data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.CrossProcessCursor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.util.Log;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.zip.CheckedOutputStream;
 
 import Model.note;
 
@@ -26,7 +23,7 @@ import static android.content.ContentValues.TAG;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
 
-    private final ArrayList<note> noteArrayList=new ArrayList<>();
+    private final ArrayList<note> noteModelArrayList =new ArrayList<>();
 
     public DataBaseHandler(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
@@ -38,7 +35,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String TABLE_CREATION=
                 "create table "+ Constants.TABLE_NAME+"("+Constants.KEY_ID+" INTEGER PRIMARY KEY,"+
                 Constants.TITLE_NAME+" TEXT,"+Constants.CONTENT_NAME+" TEXT,"+Constants.DATE_NAME+" LONG,"
-                        +Constants.TIME_NAME+" LONG);";
+                        +Constants.TIME_NAME+" LONG,"+Constants.Bitmap_NAME+" TEXT);";
 
         db.execSQL(TABLE_CREATION);
     }
@@ -51,15 +48,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addnote(note new_note){
+    public void addnote(note new_noteModel){
 
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
 
-        values.put(Constants.TITLE_NAME,new_note.getTitle());
-        values.put(Constants.CONTENT_NAME,new_note.getContent());
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String time_=sdf.format(cal.getTime());
+
+        values.put(Constants.Bitmap_NAME,DbBitmapUtility.getBytes(new_noteModel.getBitmap()));        values.put(Constants.TITLE_NAME, new_noteModel.getTitle());
+        values.put(Constants.CONTENT_NAME, new_noteModel.getContent());
         values.put(Constants.DATE_NAME,java.lang.System.currentTimeMillis());
-        values.put(Constants.TIME_NAME,java.lang.System.currentTimeMillis());
+        values.put(Constants.TIME_NAME,time_);
 
         db.insert(Constants.TABLE_NAME,null,values);
 
@@ -83,7 +84,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase();
 
         Cursor cursor=db.query(Constants.TABLE_NAME,new String[]{Constants.KEY_ID,
-                Constants.TITLE_NAME,Constants.CONTENT_NAME,Constants.DATE_NAME,Constants.TIME_NAME}
+                Constants.TITLE_NAME,Constants.CONTENT_NAME,Constants.DATE_NAME,Constants.TIME_NAME,
+                        Constants.Bitmap_NAME}
                 ,null,null,null,null,Constants.DATE_NAME+" DESC");
 
         if(cursor.moveToFirst()){
@@ -96,26 +98,18 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 String date_=dateFormat.format(
                         new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
 
-//                dateFormat=java.text.DateFormat.getTimeInstance();//new ***
-//                String time_=dateFormat.format(
-//                        new Time(cursor.getLong(cursor.getColumnIndex(Constants.TIME_NAME))).getTime());
-
+//
+                mynote.setBitmap(DbBitmapUtility.getImage(cursor.getBlob(cursor.getColumnIndex(Constants.Bitmap_NAME))));
                 mynote.setId(cursor.getInt(cursor.getColumnIndex(Constants.KEY_ID)));
-
-                //new ****
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                String time_=sdf.format(cal.getTime());
-
-                mynote.setTime(time_);
+                mynote.setTime(cursor.getString(cursor.getColumnIndex(Constants.TIME_NAME)));
 
                 mynote.setDate(date_);
 
-                noteArrayList.add(mynote);
+                noteModelArrayList.add(mynote);
 
             }while (cursor.moveToNext());
         }
-        return noteArrayList;
+        return noteModelArrayList;
 
     }
 }
