@@ -25,15 +25,15 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="54dp"
-        android:layout_height="52dp"
+        android:layout_width="56dp"
+        android:layout_height="match_parent"
         android:layout_gravity="top|left"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/white"
+        android:layout_margin="11dp"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right"
-        app:rippleColor="@android:color/white"
-        app:srcCompat="@drawable/add_icon" />
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/white_plus" />
 
 </android.support.design.widget.CoordinatorLayout>

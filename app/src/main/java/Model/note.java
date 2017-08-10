@@ -16,6 +16,15 @@ public class note implements Serializable {
     private String content;
     private int id;
     private Bitmap bitmap;
+    private byte[] bytes;
+
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
 
     public Bitmap getBitmap() {
         return bitmap;

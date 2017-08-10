@@ -4,12 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
 /**
  * Created by Moein on 8/10/2017.
  */
 
-public class DbBitmapUtility {
+public class DbBitmapUtility  {
 
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.io.IOException;
 
 import Data.DataBaseHandler;
+import Data.DbBitmapUtility;
 import Model.note;
 
 public class Get_note extends AppCompatActivity {
@@ -90,7 +91,8 @@ Log.v(TAG,"Addedto Db************");
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoFileUri);
                     Log.v(TAG,"***************Uri recieved= "+photoFileUri.toString());
-                    mynote.setBitmap(bitmap);
+                    mynote.setBytes(DbBitmapUtility.getBytes(bitmap));
+                    //mynote.setBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

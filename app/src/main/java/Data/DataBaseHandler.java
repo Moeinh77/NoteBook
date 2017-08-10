@@ -57,7 +57,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String time_=sdf.format(cal.getTime());
 
-        values.put(Constants.Bitmap_NAME,DbBitmapUtility.getBytes(new_noteModel.getBitmap()));        values.put(Constants.TITLE_NAME, new_noteModel.getTitle());
+        values.put(Constants.Bitmap_NAME,new_noteModel.getBytes());
+        values.put(Constants.TITLE_NAME, new_noteModel.getTitle());
         values.put(Constants.CONTENT_NAME, new_noteModel.getContent());
         values.put(Constants.DATE_NAME,java.lang.System.currentTimeMillis());
         values.put(Constants.TIME_NAME,time_);
@@ -99,7 +100,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                         new Date(cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME))).getTime());
 
 //
-                mynote.setBitmap(DbBitmapUtility.getImage(cursor.getBlob(cursor.getColumnIndex(Constants.Bitmap_NAME))));
+                mynote.setBytes(cursor.getBlob(cursor.getColumnIndex(Constants.Bitmap_NAME)));
                 mynote.setId(cursor.getInt(cursor.getColumnIndex(Constants.KEY_ID)));
                 mynote.setTime(cursor.getString(cursor.getColumnIndex(Constants.TIME_NAME)));
 

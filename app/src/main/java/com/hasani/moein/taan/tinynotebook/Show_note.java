@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import Data.DataBaseHandler;
+import Data.DbBitmapUtility;
 import Model.note;
 
 public class Show_note extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class Show_note extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shpw_note);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.image);
         time = (TextView) findViewById(R.id.time);
         title = (TextView) findViewById(R.id.title);
         content = (TextView) findViewById(R.id.wish);
@@ -43,10 +44,10 @@ public class Show_note extends AppCompatActivity {
         date.setText(note1.getDate());
         time.setText(note1.getTime());
 
-        //Log.v(TAG,"Uri= "+Uri.parse(note1.getUri()));
-        if (note1.getBitmap()!=null){
+        Log.v(TAG,"*****Bitmap = "+note1.getBytes());
+        if (note1.getBytes()!=null){
 
-            imageView.setImageBitmap(note1.getBitmap());
+            imageView.setImageBitmap(DbBitmapUtility.getImage(note1.getBytes()));
 
         }
 
