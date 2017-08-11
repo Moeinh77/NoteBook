@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
+
 import Data.DataBaseHandler;
 import Data.DbBitmapUtility;
 import Model.note;
@@ -97,7 +99,12 @@ public class Get_note extends AppCompatActivity {
                 BitmapDrawable drawable = (BitmapDrawable) preview.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
-                mynote.setBitmap(DbBitmapUtility.getBytes(bitmap));
+                //changing the quality
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,70,os);
+                //////////////////////////////////////////////////////////////////////////////////////////
+
+                mynote.setBitmap(os.toByteArray());
 //                try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoFileUri);
 //                    Log.v(TAG,"***************Uri recieved= "+photoFileUri.toString());
