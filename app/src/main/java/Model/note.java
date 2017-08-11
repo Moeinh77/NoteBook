@@ -15,22 +15,22 @@ public class note implements Serializable {
     private String time;
     private String content;
     private int id;
-    private Bitmap bitmap;
-    private byte[] bytes;
+    private byte[] bitmap;
+    private Uri uri;
 
-    public byte[] getBytes() {
-        return bytes;
+    public Uri getUri() {
+        return uri;
     }
 
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
+    public void setUri(Uri bytes) {
+        this.uri = bytes;
     }
 
-    public Bitmap getBitmap() {
+    public byte[] getBitmap() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(byte[] bitmap) {
         this.bitmap = bitmap;
     }
 

@@ -44,10 +44,11 @@ public class Show_note extends AppCompatActivity {
         date.setText(note1.getDate());
         time.setText(note1.getTime());
 
-        Log.v(TAG,"*****Bitmap = "+note1.getBytes());
-        if (note1.getBytes()!=null){
+        Log.v(TAG,"*****Bitmap = "+note1.getBitmap());
+        if (note1.getBitmap()!=null){
 
-            imageView.setImageBitmap(DbBitmapUtility.getImage(note1.getBytes()));
+            imageView.setImageBitmap(
+                    DbBitmapUtility.getImage(note1.getBitmap()));
 
         }
 

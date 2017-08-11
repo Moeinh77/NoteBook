@@ -30,10 +30,11 @@
         android:layout_gravity="top|left"
         android:layout_margin="11dp"
         app:backgroundTint="@color/colorPrimary"
+        app:elevation="0dp"
         app:fabSize="mini"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right"
         app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/white_plus" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </android.support.design.widget.CoordinatorLayout>
