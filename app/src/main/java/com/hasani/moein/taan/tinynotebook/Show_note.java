@@ -72,7 +72,6 @@ public class Show_note extends AppCompatActivity {
 
             sw.setImageDrawable(d);
            ////////////////////////////////////////////////////
-
         }
 
 
