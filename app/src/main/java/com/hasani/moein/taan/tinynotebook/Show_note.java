@@ -32,7 +32,7 @@ public class Show_note extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shpw_note);
+        setContentView(R.layout.show_note);
 
         imageView = (ImageView) findViewById(R.id.image);
         time = (TextView) findViewById(R.id.time);
@@ -56,7 +56,6 @@ public class Show_note extends AppCompatActivity {
             imageView.setImageBitmap(DbBitmapUtility.getImage(note1.getBitmap()));
            ////////////////////////////////////////////////////
         }
-
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
