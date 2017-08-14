@@ -55,7 +55,6 @@ public class Show_note extends AppCompatActivity {
         Drawable d = new BitmapDrawable(getResources(),
                 DbBitmapUtility.getImage(note1.getBitmap()));
 
-
         if (note1.getBitmap() != null) {
            //rah andazi  image switcher
             sw.setFactory(new ViewSwitcher.ViewFactory() {
