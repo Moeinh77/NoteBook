@@ -27,7 +27,6 @@ public class Show_note extends AppCompatActivity {
     Button delete;
     private ImageView imageView;
     private AlertDialog.Builder alert;
-    private ImageSwitcher sw;
 
 
     @Override
@@ -35,7 +34,6 @@ public class Show_note extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shpw_note);
 
-        sw = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         imageView = (ImageView) findViewById(R.id.image);
         time = (TextView) findViewById(R.id.time);
         title = (TextView) findViewById(R.id.title);
@@ -49,32 +47,15 @@ public class Show_note extends AppCompatActivity {
         content.setText(note1.getContent());
         date.setText(note1.getDate());
         time.setText(note1.getTime());
-        sw = (ImageSwitcher) findViewById(R.id.imageSwitcher);
 
         Log.v(TAG, "*****Bitmap = " + note1.getBitmap());
-        Drawable d = new BitmapDrawable(getResources(),
-                DbBitmapUtility.getImage(note1.getBitmap()));
+
 
         if (note1.getBitmap() != null) {
-           //rah andazi  image switcher
-            sw.setFactory(new ViewSwitcher.ViewFactory() {
-                @Override
-                public View makeView() {
-                    ImageView myView = new ImageView(getApplicationContext());
-                    myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                   // myView.setLayoutParams(new
-                           // ImageSwitcher.LayoutParams
-                           // (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    return myView;
-                }
-            });
 
-            sw.setImageDrawable(d);
+            imageView.setImageBitmap(DbBitmapUtility.getImage(note1.getBitmap()));
            ////////////////////////////////////////////////////
         }
-
-
-
 
 
             delete.setOnClickListener(new View.OnClickListener() {
