@@ -12,11 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 
 import Data.DataBaseHandler;
-import Data.DbBitmapUtility;
 import Model.note;
 
 public class Get_note extends AppCompatActivity {
@@ -25,7 +25,6 @@ public class Get_note extends AppCompatActivity {
     private EditText Text_edit;
     private Button save;
     private ImageView preview;
-    private Button cancel;
      private FloatingActionButton choose;
     private int request_code = 1;
     note mynote = new note();
@@ -35,7 +34,7 @@ public class Get_note extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_note);
 
-        preview=(ImageView)findViewById(R.id.preview);
+        preview=(ImageView)findViewById(R.id.pre1);
         choose = (FloatingActionButton) findViewById(R.id.choose);
         Title_edit = (EditText) findViewById(R.id.title);
         Text_edit = (EditText) findViewById(R.id.text);
@@ -71,7 +70,8 @@ public class Get_note extends AppCompatActivity {
                 if (Text_edit.getText().toString().equals("") &&
                         Title_edit.getText().toString().equals("")) {
 
-                    finish();
+                    Toast.makeText(Get_note.this, "Please enter some content...", Toast.LENGTH_SHORT).show();
+
                 } else {
                     mynote.setTitle(Title_edit.getText().toString().trim());
                     mynote.setContent(Text_edit.getText().toString().trim());
@@ -95,7 +95,6 @@ public class Get_note extends AppCompatActivity {
 
 
                 preview.setImageURI(photoFileUri);
-
                 BitmapDrawable drawable = (BitmapDrawable) preview.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
@@ -104,8 +103,13 @@ public class Get_note extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG,70,os);
                 //////////////////////////////////////////////////////////////////////////////////////////
 
+
                 mynote.setBitmap(os.toByteArray());
-//                try {
+                mynote.setUri(photoFileUri.toString());
+                Log.v("ss","################# bitmap recived  "+os.toByteArray().toString());
+
+//
+// try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoFileUri);
 //                    Log.v(TAG,"***************Uri recieved= "+photoFileUri.toString());
 //                    //mynote.setBytes(DbBitmapUtility.getBytes(bitmap));

@@ -16,13 +16,13 @@ public class note implements Serializable {
     private String content;
     private int id;
     private byte[] bitmap;
-    private Uri uri;
+    private String uri;
 
-    public Uri getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(Uri bytes) {
+    public void setUri(String bytes) {
         this.uri = bytes;
     }
 

@@ -1,16 +1,20 @@
 package com.hasani.moein.taan.tinynotebook;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.nfc.Tag;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import Data.DataBaseHandler;
 import Data.DbBitmapUtility;
@@ -19,10 +23,11 @@ import Model.note;
 public class Show_note extends AppCompatActivity {
 
     private static final String TAG = "a";
-    TextView content,date,title,time;
+    TextView content, date, title, time;
     Button delete;
     private ImageView imageView;
     private AlertDialog.Builder alert;
+    private ImageSwitcher sw;
 
 
     @Override
@@ -30,6 +35,7 @@ public class Show_note extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shpw_note);
 
+        sw = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         imageView = (ImageView) findViewById(R.id.image);
         time = (TextView) findViewById(R.id.time);
         title = (TextView) findViewById(R.id.title);
@@ -43,54 +49,68 @@ public class Show_note extends AppCompatActivity {
         content.setText(note1.getContent());
         date.setText(note1.getDate());
         time.setText(note1.getTime());
+        sw = (ImageSwitcher) findViewById(R.id.imageSwitcher);
 
-        Log.v(TAG,"*****Bitmap = "+note1.getBitmap());
-        if (note1.getBitmap()!=null){
+        Log.v(TAG, "*****Bitmap = " + note1.getBitmap());
+        Drawable d = new BitmapDrawable(getResources(),
+                DbBitmapUtility.getImage(note1.getBitmap()));
 
-            imageView.setImageBitmap(
-                    DbBitmapUtility.getImage(note1.getBitmap()));
+
+        if (note1.getBitmap() != null) {
+           //rah andazi  image switcher
+            sw.setFactory(new ViewSwitcher.ViewFactory() {
+                @Override
+                public View makeView() {
+                    ImageView myView = new ImageView(getApplicationContext());
+                    myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                   // myView.setLayoutParams(new
+                           // ImageSwitcher.LayoutParams
+                           // (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    return myView;
+                }
+            });
+
+            sw.setImageDrawable(d);
+           ////////////////////////////////////////////////////
 
         }
 
 
 
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                alert=new AlertDialog.Builder(Show_note.this);
-                alert.setTitle("Delete");
-                alert.setMessage("Do you want to delete this note ?");
-                alert.setCancelable(false);
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DataBaseHandler dbh=new DataBaseHandler(getApplicationContext());
-                        dbh.removenote(note1.getId());
-                        finish();
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    }
-                });
+                    alert = new AlertDialog.Builder(Show_note.this);
+                    alert.setTitle("Delete");
+                    alert.setMessage("Do you want to delete this note ?");
+                    alert.setCancelable(false);
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DataBaseHandler dbh = new DataBaseHandler(getApplicationContext());
+                            dbh.removenote(note1.getId());
+                            finish();
 
-                AlertDialog alert_example=alert.create();
-                alert_example.show();
+                        }
+                    });
 
-
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
+                    AlertDialog alert_example = alert.create();
+                    alert_example.show();
 
 
-        super.onDestroy();
+                }
+            });
+
+
+
     }
 }

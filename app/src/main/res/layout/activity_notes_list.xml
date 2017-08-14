@@ -35,5 +35,5 @@
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right"
         app:rippleColor="@color/colorPrimaryDark"
-/>
+        app:srcCompat="@android:drawable/ic_input_add" />
 </android.support.design.widget.CoordinatorLayout>
