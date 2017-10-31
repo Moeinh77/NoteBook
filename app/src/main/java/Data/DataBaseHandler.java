@@ -17,10 +17,6 @@ import Model.note;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by Moein on 6/26/2017.
- */
-
 public class DataBaseHandler extends SQLiteOpenHelper {
 
     private final ArrayList<note> noteModelArrayList =new ArrayList<>();
