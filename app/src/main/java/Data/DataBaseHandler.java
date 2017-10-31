@@ -132,4 +132,5 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.update(Constants.TABLE_NAME, contentValues, strFilter, null);
 
     }
+
 }
