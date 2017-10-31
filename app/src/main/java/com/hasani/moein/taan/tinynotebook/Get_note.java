@@ -2,12 +2,6 @@ package com.hasani.moein.taan.tinynotebook;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,25 +23,23 @@ public class Get_note extends AppCompatActivity {
     private static final String TAG = "TAg";
     private EditText Title_edit;
     private EditText Text_edit;
-    private Button save;
     private ImageView preview;
-     private FloatingActionButton choose;
+    private FloatingActionButton choose;
     private int request_code = 1;
-    note mynote = new note();
+    note mynote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_note);
 
-        preview=(ImageView)findViewById(R.id.pre1);
+        preview = (ImageView) findViewById(R.id.pre1);
         choose = (FloatingActionButton) findViewById(R.id.choose);
         Title_edit = (EditText) findViewById(R.id.title);
         Text_edit = (EditText) findViewById(R.id.text);
-        save = (Button) findViewById(R.id.submit);
-        //cancel = (Button) findViewById(R.id.cancel);
+        Button save = (Button) findViewById(R.id.submit);
+        mynote = new note();
 
-      //  mynote.setUri(null);
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,25 +64,33 @@ public class Get_note extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBaseHandler dbh = new DataBaseHandler(Get_note.this);
+
+                DataBaseHandler dbh = new DataBaseHandler(getApplicationContext());
+
                 if (Text_edit.getText().toString().equals("") &&
                         Title_edit.getText().toString().equals("")) {
 
-                    Toast.makeText(Get_note.this, "Please enter some content...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Get_note.this, "Please enter some text...",
+                            Toast.LENGTH_SHORT).show();
 
                 } else {
+
                     mynote.setTitle(Title_edit.getText().toString().trim());
                     mynote.setContent(Text_edit.getText().toString().trim());
 
                     dbh.addnote(mynote);
                     dbh.close();
-                    Log.v(TAG, "Addedto Db************");
                     finish();
+
+                    Log.v(TAG, "Addedto Db************");
+
                 }
             }
         });
     }
 
+
+    //baraye gereftan address e akse entekhab shode ast
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -106,23 +106,15 @@ public class Get_note extends AppCompatActivity {
 
                 //changing the quality
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,70,os);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, os);
                 //////////////////////////////////////////////////////////////////////////////////////////
 
 
                 mynote.setBitmap(os.toByteArray());
                 mynote.setUri(photoFileUri.toString());
-                Log.v("ss","################# bitmap recived  "+os.toByteArray().toString());
+                Log.v("ss", "################# bitmap recived  " + os.toByteArray().toString());
 
-//
-// try {
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoFileUri);
-//                    Log.v(TAG,"***************Uri recieved= "+photoFileUri.toString());
-//                    //mynote.setBytes(DbBitmapUtility.getBytes(bitmap));
-//                  //  mynote.setBitmap(bitmap);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+
                 //////////////////////////////////////////////////////////////////////////////////////////
 
                 super.onActivityResult(requestCode, resultCode, data);

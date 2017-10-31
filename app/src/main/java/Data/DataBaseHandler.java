@@ -38,6 +38,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                         +Constants.TIME_NAME+" LONG,"+Constants.Bitmap_NAME+" TEXT,"+Constants.URi_name+" TEXT);";
 
         db.execSQL(TABLE_CREATION);
+
+
     }
 
     @Override
@@ -80,6 +82,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor=db.rawQuery("SELECT * FROM "+Constants.TABLE_NAME,null);
         Log.v(TAG, "Items in db= "+cursor.getCount());
+        cursor.close();
     }
 
     public ArrayList<note> getnotes(){
@@ -113,7 +116,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
             }while (cursor.moveToNext());
         }
+
+        cursor.close();
         return noteModelArrayList;
+
+    }
+
+    public void update_note(note newNote){
+
+        SQLiteDatabase db=getWritableDatabase();
+
+        String strFilter = Constants.KEY_ID +"="+ newNote.getId();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.CONTENT_NAME, newNote.getContent());
+        db.update(Constants.TABLE_NAME, contentValues, strFilter, null);
 
     }
 }
