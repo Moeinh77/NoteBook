@@ -39,7 +39,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         db.execSQL(TABLE_CREATION);
 
-
     }
 
     @Override
